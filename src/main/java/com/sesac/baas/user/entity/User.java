@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Builder
 @NoArgsConstructor
 public class User {
 
@@ -15,5 +14,10 @@ public class User {
 
     private String password;
 
+    @Builder
+    public User(final String userName, final String password) {
+        this.userName = userName;
+        this.password = password;
+    }
 }
 

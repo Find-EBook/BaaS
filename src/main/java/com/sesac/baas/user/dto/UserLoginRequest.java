@@ -3,7 +3,6 @@ package com.sesac.baas.user.dto;
 import lombok.*;
 
 @Getter
-@Builder
 @NoArgsConstructor
 public class UserLoginRequest {
 
@@ -13,4 +12,10 @@ public class UserLoginRequest {
 
     private Integer tenant_id;
 
+    @Builder
+    public UserLoginRequest(final String email, final String password, final Integer tenant_id) {
+        this.email = email;
+        this.password = password;
+        this.tenant_id = tenant_id;
+    }
 }
