@@ -11,7 +11,7 @@ public class UserLoginRequest {
     private String password;
 
     @Builder
-    public UserLoginRequest(final String email, final String password) {
+    public UserLoginRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }
