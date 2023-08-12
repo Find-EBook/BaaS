@@ -10,12 +10,9 @@ public class UserLoginRequest {
 
     private String password;
 
-    private Integer tenant_id;
-
     @Builder
-    public UserLoginRequest(final String email, final String password, final Integer tenant_id) {
+    public UserLoginRequest(final String email, final String password) {
         this.email = email;
         this.password = password;
-        this.tenant_id = tenant_id;
     }
 }
