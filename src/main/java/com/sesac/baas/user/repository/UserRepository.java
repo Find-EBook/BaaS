@@ -1,11 +1,13 @@
 package com.sesac.baas.user.repository;
 
 
-import com.sesac.baas.user.entity.User;
+import com.sesac.baas.user.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, String> {
+import java.util.Optional;
 
+@Repository
+public interface UserRepository extends JpaRepository<Member, String> {
+    Optional<Member> findByUserName(String username);
 }
