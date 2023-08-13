@@ -34,7 +34,12 @@ public class UserController {
     private final TokenBlackListRepository tokenBlackListRepository;
     private final JwtUtil jwtUtil;
     private final UserService userService;
-
+    /**
+     * 사용자의 로그인 요청을 처리하는 메서드입니다.
+     *
+     * @param loginRequest 사용자의 이메일과 비밀번호 정보를 담고 있는 객체
+     * @return JWT 토큰을 포함한 응답 혹은 에러 메시지
+     */
     // 사용자 로그인을 처리하는 엔드포인트입니다.
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginRequest loginRequest) {
@@ -61,6 +66,13 @@ public class UserController {
         }
     }
 
+
+    /**
+     * 사용자의 회원가입 요청을 처리하는 메서드입니다.
+     *
+     * @param registrationRequest 사용자의 이메일, 이름, 비밀번호 등의 정보를 담고 있는 객체
+     * @return 성공적인 회원가입 결과 혹은 에러 메시지
+     */
     // 사용자 등록을 처리하는 엔드포인트입니다.
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody UserRegistrationRequest registrationRequest) {
@@ -77,6 +89,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
     }
 
+
+    /**
+     * 사용자의 로그아웃 요청을 처리하는 메서드입니다.
+     * 실제 로그아웃의 의미가 아니라, JWT 토큰을 블랙리스트에 추가하여 더 이상 사용할 수 없게 합니다.
+     *
+     * @param request 사용자의 요청 정보, JWT 토큰을 추출하기 위해 사용됩니다.
+     * @return 로그아웃 처리 결과 혹은 에러 메시지
+     */
     // 사용자 로그아웃을 처리하는 엔드포인트입니다.
     // 주의: 이는 실제 로그아웃과는 다르게 토큰을 블랙리스트에 추가하는 것을 의미합니다.
     @PostMapping("/logout")
@@ -90,6 +110,13 @@ public class UserController {
         return ResponseEntity.ok("Logged out successfully");
     }
 
+
+    /**
+     * HttpServletRequest 객체에서 "Authorization" 헤더를 추출하여 JWT 토큰을 반환하는 메서드입니다.
+     *
+     * @param request 사용자의 요청 정보
+     * @return JWT 토큰 문자열. 토큰이 존재하지 않으면 null을 반환합니다.
+     */
     // 요청 헤더에서 JWT 토큰을 추출하는 private 메서드입니다.
     private String extractJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
