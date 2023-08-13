@@ -1,6 +1,6 @@
 package com.sesac.baas.user.service;
 
-import com.sesac.baas.user.entity.Member;
+import com.sesac.baas.user.entity.User;
 import com.sesac.baas.user.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,13 +28,13 @@ public class UserServiceTest {
 
     @Autowired
     private UserService userService;
-    private Member testUser;
+    private User testUser;
 
     @BeforeEach
     void setUp() {
         // 테스트 시작 전에 사용자 저장
-        testUser = Member.builder()
-                .userName("testUser")
+        testUser = User.builder()
+                .email("testUser")
                 .password("testPass")
                 .build();
         userRepository.save(testUser);
