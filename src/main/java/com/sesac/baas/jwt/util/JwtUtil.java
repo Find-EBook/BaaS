@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -23,9 +24,11 @@ public class JwtUtil {
     private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
 
     // JWT 토큰 서명에 사용되는 비밀키
-    private final String secret = "KEY";
+//    @Value("${JWT_SECRET}")
+    private final String secret = "BaaSSECRETKEY";
     // JWT 토큰의 만료 시간 (1주)
-    private final long expiration = 604800L;
+//    @Value("${JWT_EXPIRATION}")
+    private final long expiration =604800L;
 
     // UserDetails 객체를 기반으로 JWT 토큰을 생성하는 메서드
     public String generateToken(UserDetails userDetails) {
