@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Tenant</title>
+</head>
+<body>
+<form action="/createTenant" method="post" th:object="${tenantDto}">
+    <input type="text" th:field="*{serviceName}" placeholder="Service Name" />
+    <button type="submit">Create Tenant</button>
+</form>
+</body>
+</html>
