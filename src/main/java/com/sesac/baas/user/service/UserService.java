@@ -1,5 +1,8 @@
 package com.sesac.baas.user.service;
 
+import com.sesac.baas.tenant.dto.TenantDto;
+import com.sesac.baas.tenant.entity.Tenant;
+import com.sesac.baas.tenant.service.TenantService;
 import com.sesac.baas.user.dto.UserRegistrationRequest;
 import com.sesac.baas.user.entity.User;
 import com.sesac.baas.user.repository.UserRepository;
@@ -24,7 +27,7 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
 
 
-
+    private final TenantService tenantService; // 테넌트 관련 서비스
     private final UserRepository userRepository;  // 사용자 저장소
     private final PasswordService passwordService;  // 비밀번호 관련 서비스
 
@@ -80,7 +83,15 @@ public class UserService implements UserDetailsService {
 
         // 사용자 등록 요청에서 정보를 추출해 새로운 User 객체 생성 (비밀번호는 암호화됨)
         User user = new User(registrationRequest.getEmail(), passwordService.encodePassword(registrationRequest.getPassword()));
-
+        // 테넌트 조회
+        boolean tenant = tenantService.existsById(registrationRequest.getTenantId());
+        if(!tenant) {
+            log.warn("Tenant does not exist with ID: {}", registrationRequest.getTenantId());
+            return;  // 테넌트가 없으면 사용자 등록을 중단합니다.
+        }
+        Tenant mock = tenantService.findById(registrationRequest.getTenantId());
+        // 조회한 테넌트를 사용자 엔터티의 테넌트 필드에 설정
+        user.setTenant(mock);  // 수정한 부분입니다.
         try {
             // 새로운 사용자 정보를 데이터베이스에 저장
             userRepository.save(user);
