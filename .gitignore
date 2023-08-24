@@ -10,7 +10,6 @@ build/
 .factorypath
 .project
 .settings
-*.properties
 .springBeans
 .sts4-cache
 bin/
@@ -18,10 +17,10 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
+application.properites
 .idea
 *.iws
 *.iml
-*.properties
 *.ipr
 out/
 !**/src/main/**/out/
