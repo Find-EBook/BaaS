@@ -11,6 +11,7 @@ build/
 .factorypath
 .project
 .settings
+*.properties
 .springBeans
 .sts4-cache
 bin/
@@ -21,6 +22,7 @@ bin/
 .idea
 *.iws
 *.iml
+*.properties
 *.ipr
 out/
 !**/src/main/**/out/
@@ -35,3 +37,5 @@ out/
 
 ### VS Code ###
 .vscode/
+
+src/main/resources/application.properties

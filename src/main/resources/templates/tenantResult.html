@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tenant Creation Result</title>
+    <style>
+        /* 중앙 배치를 위한 스타일 */
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .center-content {
+            width: 350px;  /* 필요에 따라 조정하세요. */
+            text-align: center;  /* 내용 중앙 정렬 */
+        }
+    </style>
+</head>
+<body>
+<div class="center-container">
+    <div class="center-content">
+        <h2>테넌트 생성 결과</h2>
+        <p>테넌트 ID: <span th:text="${createdTenant.id}"></span></p>
+        <p>서비스명: <span th:text="${createdTenant.serviceName}"></span></p>
+        <p>테넌트가 성공적으로 생성되었습니다!</p>
+        <p>테넌트 ID를 반드시 기억하세요!</p>
+        <a href="/">홈으로 돌아가기</a>
+    </div>
+</div>
+</body>
+</html>
