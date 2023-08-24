@@ -1,28 +1,42 @@
-name: Gradle CI
+name: CI/CD to AWS EC2
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out code
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt'
           java-version: '17'
 
-      - name: Grant execute permissions for gradlew
-        run: chmod +x gradlew
-
-      - name: Build with Gradle
+      - name: Build and Test
         run: ./gradlew build
 
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to AWS EC2
+        env:
+          HOST: ${{ secrets.EC2_HOST }}
+          USER: ${{ secrets.EC2_USER }}
+          PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
+        run: |
+          echo "$PEM_KEY" > deploy_key.pem
+          chmod 600 deploy_key.pem
+          scp -o StrictHostKeyChecking=no -i deploy_key.pem <files-to-deploy> $USER@$HOST:<destination-path>
+          rm -f deploy_key.pem
