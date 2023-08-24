@@ -2,6 +2,7 @@ package com.sesac.baas.tenant.controller;
 
 
 import com.sesac.baas.tenant.dto.TenantDto;
+import com.sesac.baas.tenant.entity.Tenant;
 import com.sesac.baas.tenant.service.TenantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,9 +25,14 @@ public class TenantController {
 
 
     @PostMapping("/createTenant")
-    public String createTenant(@ModelAttribute TenantDto tenantDto) {
-        tenantService.createTenant(tenantDto);
-        return "redirect:/"; // Redirecting back to index or wherever you want.
+    public String createTenant(@ModelAttribute TenantDto tenantDto,Model model) {
+        Tenant createTenant = tenantService.createTenant(tenantDto);
+
+        // 생성된 Tenanat 정보를 Model에 추가
+        model.addAttribute("createdTenant", createTenant);
+
+        // 결과 페이지로 리다이렉트하거나 결과 페이지 반환
+        return "tenantResult";
     }
 
 

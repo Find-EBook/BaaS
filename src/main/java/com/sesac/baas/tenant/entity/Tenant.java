@@ -31,6 +31,4 @@ public class Tenant {
     @OneToMany(mappedBy = "tenant")
     private Set<User> users = new HashSet<>(); // ???
 
-
-
 }

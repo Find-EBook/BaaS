@@ -2,11 +2,46 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Tenant</title>
+    <style>
+        /* 스타일 정의 */
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;  /* 뷰포트의 높이를 100%로 설정 */
+        }
+
+        .center-content {
+            width: 350px;  /* 폼의 넓이. 필요에 따라 조정하세요. */
+        }
+
+        /* 입력 칸 스타일 */
+        .center-content input[type="text"] {
+            width: 100%;    /* 넓이를 100%로 설정하여 부모 요소의 넓이에 맞춤 */
+            padding: 10px;  /* 패딩 추가로 텍스트 입력 부분이 넓어짐 */
+            margin-bottom: 10px;  /* 아래 마진 추가 */
+            font-size: 16px;      /* 폰트 크기 조정 */
+        }
+
+        /* 버튼 스타일 */
+        .center-content button {
+            width: 100%;    /* 넓이를 100%로 설정하여 부모 요소의 넓이에 맞춤 */
+            padding: 10px;  /* 패딩 추가로 버튼 크기 증가 */
+            font-size: 16px;      /* 폰트 크기 조정 */
+            cursor: pointer;      /* 마우스 오버 시 포인터 모양으로 변경 */
+        }
+    </style>
 </head>
 <body>
-<form action="/createTenant" method="post" th:object="${tenantDto}">
-    <input type="text" th:field="*{serviceName}" placeholder="Service Name" />
-    <button type="submit">Create Tenant</button>
-</form>
+<!-- 중앙 배치를 위한 컨테이너 -->
+<div class="center-container">
+    <!-- 폼의 내용 -->
+    <div class="center-content">
+        <form action="/createTenant" method="post" th:object="${tenantDto}">
+            <input type="text" th:field="*{serviceName}" placeholder="Service Name" />
+            <button type="submit">Create Tenant</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

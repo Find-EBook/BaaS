@@ -5,6 +5,7 @@ import com.sesac.baas.jwt.dto.AuthenticationResponse;
 import com.sesac.baas.jwt.entity.TokenBlackList;
 import com.sesac.baas.jwt.repository.TokenBlackListRepository;
 import com.sesac.baas.jwt.util.JwtUtil;
+import com.sesac.baas.tenant.service.TenantService;
 import com.sesac.baas.user.dto.UserLoginRequest;
 import com.sesac.baas.user.dto.UserRegistrationRequest;
 import com.sesac.baas.user.service.UserService;
@@ -30,7 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 // 이 컨트롤러의 모든 엔드포인트에 대한 기본 URL 경로입니다.
 @RequestMapping("/api/user")
 public class UserController {
-
+    private final TenantService tenantService;
     private final TokenBlackListRepository tokenBlackListRepository;
     private final JwtUtil jwtUtil;
     private final UserService userService;
@@ -75,18 +76,22 @@ public class UserController {
      */
     // 사용자 등록을 처리하는 엔드포인트입니다.
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserRegistrationRequest registrationRequest) {
+    public String register(@RequestBody UserRegistrationRequest registrationRequest) {
         log.info("Registration request for email: {}", registrationRequest.getEmail());
 
         if (userService.userExists(registrationRequest.getEmail())) {
             log.warn("User already exists with email: {}", registrationRequest.getEmail());
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("User already exists");
+            return "User already exists";
         }
 
+        // 테넌트가 존재하는지 검사합니다.
+        if (!tenantService.existsById(registrationRequest.getTenantId())) {
+            log.warn("Tenant does not exist with ID: {}", registrationRequest.getTenantId());
+            return "Tenant does not exist";
+        }
         // 사용자를 등록하는 서비스 메서드를 호출합니다.
         userService.registerUser(registrationRequest);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully");
+        return "User registered successfully";
     }
 
 
