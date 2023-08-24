@@ -16,15 +16,19 @@ public class UserLoginRequest {
     // 사용자의 비밀번호를 저장하는 필드입니다.
     private String password;
 
+    //테넌트 ID 필드 추가
+    private Long tenantId;
     /**
      * 이 클래스의 빌더 패턴 스타일 생성자입니다.
      * @param email 사용자의 이메일 주소
      * @param password 사용자의 비밀번호
+     * @param tenantId 사용자의 테넌트Id
      */
     @Builder  // Lombok 라이브러리를 사용하여 빌더 패턴 스타일의 생성자 메서드를 자동으로 생성합니다.
-    public UserLoginRequest(String email, String password) {
+    public UserLoginRequest(String email, String password,Long tenantId) {
         this.email = email;
         this.password = password;
+        this.tenantId = tenantId;
     }
 }
 

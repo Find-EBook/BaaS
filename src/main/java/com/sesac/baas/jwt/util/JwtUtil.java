@@ -23,12 +23,11 @@ public class JwtUtil {
 
     private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
 
-    // JWT 토큰 서명에 사용되는 비밀키
-//    @Value("${JWT_SECRET}")
-    private final String secret = "BaaSSECRETKEY";
-    // JWT 토큰의 만료 시간 (1주)
-//    @Value("${JWT_EXPIRATION}")
-    private final long expiration =604800L;
+
+    @Value("${JWT_SECRET}")
+    private String secret;
+    @Value("${JWT_EXPIRATION}")
+    private long expiration;
 
     // UserDetails 객체를 기반으로 JWT 토큰을 생성하는 메서드
     public String generateToken(UserDetails userDetails) {
