@@ -18,6 +18,7 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
+
       - name: Grant execute permissions for gradlew
         run: chmod +x gradlew
 
@@ -38,7 +39,7 @@ jobs:
           USER: ${{ secrets.EC2_USER }}
           PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
         run: |
-          echo "$PEM_KEY" > deploy_key.pem
+          echo -e "$PEM_KEY" > deploy_key.pem
           chmod 600 deploy_key.pem
-          scp -o StrictHostKeyChecking=no -i deploy_key.pem <files-to-deploy> $USER@$HOST:<destination-path>
+          scp -i deploy_key.pem ./path-to-your-file-or-directory $USER@$HOST:/path-on-ec2
           rm -f deploy_key.pem
