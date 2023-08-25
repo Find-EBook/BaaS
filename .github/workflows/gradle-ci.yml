@@ -44,6 +44,6 @@ jobs:
           cat ~/.ssh/known_hosts
           echo -e "$PEM_KEY" > deploy_key.pem
           chmod 600 deploy_key.pem
-          scp -i deploy_key.pem ./path-to-your-file-or-directory $USER@$HOST:/path-on-ec2
+          scp -i deploy_key.pem ./build/libs/BaaS-0.0.1-SNAPSHOT.jar $USER@$HOST:~/BaaS/build/libs/
           rm -f deploy_key.pem
 
