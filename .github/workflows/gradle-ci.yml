@@ -39,6 +39,7 @@ jobs:
           USER: ${{ secrets.EC2_USER }}
           PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
         run: |
+          mkdir -p ~/.ssh
           ssh-keyscan ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
           cat ~/.ssh/known_hosts
           echo -e "$PEM_KEY" > deploy_key.pem
