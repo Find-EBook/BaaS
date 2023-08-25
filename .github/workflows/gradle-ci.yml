@@ -39,7 +39,10 @@ jobs:
           USER: ${{ secrets.EC2_USER }}
           PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
         run: |
+          ssh-keyscan ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+          cat ~/.ssh/known_hosts
           echo -e "$PEM_KEY" > deploy_key.pem
           chmod 600 deploy_key.pem
           scp -i deploy_key.pem ./path-to-your-file-or-directory $USER@$HOST:/path-on-ec2
           rm -f deploy_key.pem
+
